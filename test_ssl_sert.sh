@@ -10,8 +10,9 @@ else
 fi
 
 MODE=${2:-none}
+PORT=${3:-443}
 if [[ "$MODE" != "show" ]]; then
-    openssl s_client -showcerts -servername $1 -connect $1:443 <<< "Q" | openssl x509 -text | grep -iA2 "Validity"
+    openssl s_client -showcerts -servername $1 -connect $1:$PORT <<< "Q" | openssl x509 -text | grep -iA2 "Validity"
 else
-    openssl s_client -showcerts -servername $1 -connect $1:443 <<< "Q"
+    openssl s_client -showcerts -servername $1 -connect $1:$PORT <<< "Q"
 fi
